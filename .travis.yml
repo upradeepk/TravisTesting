@@ -4,14 +4,12 @@ branches:
 only:
 - master
 script:
-- xctool -project ./SampleProject/SampleProject.xcodeproj -scheme SampleProject -sdk
-  iphonesimulator ONLY_ACTIVE_ARCH=NO -configuration Release OBJROOT=$PWD/build CONFIGURATION_BUILD_DIR=$PWD/build
-  SYMROOT=$PWD/build
+- xctool -project ./SampleProject/SampleProject.xcodeproj -scheme SampleProject -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -configuration Release OBJROOT=$PWD/build CONFIGURATION_BUILD_DIR=$PWD/build SYMROOT=$PWD/build
 env:
   global:
   - APP_NAME="SampleProject"
 before_deploy:
-- zip -r --symlinks "$APP_NAME-$TRAVIS_TAG.zip" "$PWD/build/$APP_NAME.ipa"
+- zip -r --symlinks "$APP_NAME-$TRAVIS_TAG.zip" "./build/$APP_NAME.app"
 deploy:
   provider: releases
   api_key:
