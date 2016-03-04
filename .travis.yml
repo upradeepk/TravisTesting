@@ -9,7 +9,7 @@ env:
   global:
   - APP_NAME="SampleProject"
 before_deploy:
-- zip -r --symlinks "$APP_NAME-$TRAVIS_TAG.zip" "./build/$APP_NAME.app"
+- zip -r --symlinks "$APP_NAME-$TRAVIS_TAG.zip" "$PWD/build/$APP_NAME.app"
 deploy:
   provider: releases
   api_key:
