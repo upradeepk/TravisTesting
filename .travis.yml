@@ -1,22 +1,23 @@
 language: objective-c
 osx_image: xcode7.2
-branches: 
-    only:
-        - master
+branches:
+  only:
+  - master
 script:
-- xctool -project ./SampleProject/SampleProject.xcodeproj -scheme SampleProject -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -configuration Release OBJROOT=$PWD/build CONFIGURATION_BUILD_DIR=$PWD/build SYMROOT=$PWD/build
+- xctool -project ./SampleProject/SampleProject.xcodeproj -scheme SampleProject -sdk
+  iphonesimulator ONLY_ACTIVE_ARCH=NO -configuration Release OBJROOT=$PWD/build CONFIGURATION_BUILD_DIR=$PWD/build
+  SYMROOT=$PWD/build
 env:
   global:
   - APP_NAME="SampleProject"
 before_deploy:
 - zip -r --symlinks "$APP_NAME-$TRAVIS_TAG.zip" "$PWD/build/$APP_NAME.app"
 deploy:
-    provider: releases
-    script: scripts/deploy.sh
-    api_key: d94688f50bddcfca80cdee6006a4560e4fb1de91
-    file: '$APP_NAME-$TRAVIS_TAG.zip'
-    skip_cleanup: true
-    on:
-        repo: upradeepk/TravisTesting
-        branch: master
-        tags: true
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: doxGjQjv59xhCzbooZr5wL7CkkmgBA4yAiOf9nH2MXtHqjRWsY4x1LFV855j/itpW4yHM+6ekHlolzauiBflYodWZGQcR5S6YT83bfUNE057ToIYZSv8fPGBHCmsde9Je78GqhtVod9UP7hwfxhF7EsWCMJxksQd2YZgs+6ajekkpPK6PG9bPVxiyWAlXmm8OMJ24cmHNjER0wtPWnxUH9tssWELzYybP+i5GsbLy3Obko3pAUwmRAKGHdL1t7rMyKTcjq/5KHPhEgKqd8hhNGbv/CjoUDkgBpWKiee7vM/Aqp6nygiRpwhVFwg1ssNNCD5D8LORJbwaWiPoOvJONRAoTCMYPFSN3J6NLSmtSgzP66it/LQqKwrVk9Rnllzn2UZTTGIAUuH3AEeUJshT38HsXOvcIrPBwJ1BkgXATObKYMUxni1nuV8RUPVkq8NC29xxCWkmuFlN+EAt54JFRzKxUhWzAIroxnptPcAONdEAPe540vcJAeaJgEDriD9qB6JJARoQG6iCfyOqgJQyTF9jBPh//nuH86e1OV6kFcACkcL9oaiDlaHnw7EnYhxM45ffs3/sswsNbp7BTxvOBQcOoGUi8dt0AQ8teN0MsOVPSg2MPcjcthYh3R6pJPY1IrO5Lpyd58y508B2nNJ9OJpLaoRTeITG1NOuKhQgF6A=
+  file: '$APP_NAME-$TRAVIS_TAG.zip'
+  on:
+    repo: upradeepk/TravisTesting
+    tags: true
