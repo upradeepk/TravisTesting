@@ -27,5 +27,8 @@ class ViewController: UIViewController {
     func function2() {
         print("function2")
     }
+    func function3() {
+        print("function3")
+    }
 }
 
