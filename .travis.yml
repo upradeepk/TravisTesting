@@ -1,0 +1,21 @@
+language: objective-c
+osx_image: xcode7.2
+branches: 
+only:
+- master
+script:
+- xctool -project ./SampleProject/SampleProject.xcodeproj -scheme SampleProject -sdk
+  iphonesimulator ONLY_ACTIVE_ARCH=NO -configuration Release OBJROOT=$PWD/build CONFIGURATION_BUILD_DIR=$PWD/build
+  SYMROOT=$PWD/build
+env:
+  global:
+  - APP_NAME="SampleProject"
+deploy:
+  provider: releases
+  api_key:
+    secure: U9flcYocY4eEVRmDJWKksHEba+80V7apeN+KpV+ttizdV19nrls4ZnYZNX0ptAtMWFr5CuiCwerMf+CbSbKS7or+l5JMMvxEuF4QOAkslFroc6OXYlpy8cgEim/lkWtZrABOsV6n4wqFxxyIg3Z+63mmg0z48cQEFeMXc2a1/eXustkXS8tKV7PhPiVa6MbnneyKJpu89RUQ8gCZbhKIwt5IfBF1e17C5Kak1gttW2qN0/+4e2suKzYlE9uEetRDHQWH80xPvyf/Na4Y3TnLene3ZfBASDe/HYpjRXmoeAl0rSYhiXBTL4UTA39PvmlKMjF8UiCC9icT94L6zObK5RITvL+QADugJu+LQaMWWrtOLCjQM1Wjd5n5mF+2hNFBW+jSfbGVaT3rYoT2+XsEynBlgTSqonJPW93v5PDlW1FG1Tv5216KaMqUJyKbQDjo0OhcKawpEfejK7bKTaSgTIwBUdrqRGfsDBoEDMARNHiZqBg8f0GHJCtUHqJ9oKzZISTwO1Nf6c4kXNyztEow0ouPEZoOe1W2Je5gSpVeQvVXAkQ1/fMpnuIVssPaxAhPc/efhRBr8TedKMRWurfwIXsKfo8uaecVvyrT9jPAtykksCiFEkJjSmV84lSg4NawOHb4UgJrRBRvmGcm+L66868q2eLii7G0zETTOp/0lSE=
+  file: '$APP_NAME-$TRAVIS_TAG.zip'
+  on:
+    repo: upradeepk/TravisTesting
+skip_cleanup: true
+tags: true
